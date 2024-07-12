@@ -15,18 +15,14 @@ public class Mover : MonoBehaviour
         _transform = transform;
     }
 
-    public void Move(Vector3 direction)
+    public void Move(Vector2 direction)
     {
-        _transform.LookAt(_transform.position + direction);
-
+        _transform.Translate(direction * _speed);
         IsMoving = true;
     }
 
-    //public void Stop()
-    //{
-    //    if (_rigidbody != null)
-    //        _rigidbody.velocity = Vector3.zero;
-
-    //    IsMoving = false;
-    //}
+    public void Stop()
+    {
+        IsMoving = false;
+    }
 }
