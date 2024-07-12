@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Slider _slider;
     [SerializeField] private Health _heatlh;
+    [SerializeField] private Slider _slider;
+    [SerializeField] private TMP_Text _text;
 
     private void OnEnable()
     {
@@ -20,6 +20,7 @@ public class HealthBar : MonoBehaviour
 
     private void ChangeSliderValue(int value)
     {
-        _slider.value = value / 100;
+        _slider.value = value;
+        _text.text = value.ToString();
     }
 }

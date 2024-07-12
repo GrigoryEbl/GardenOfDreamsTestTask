@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] protected float _speed;
 
     private Transform _transform;
     private Rigidbody2D _rigidbody2D;

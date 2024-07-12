@@ -3,7 +3,8 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private int _damage;
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private Transform _shootPoint;
 
     private Transform _transform;
 
@@ -14,12 +15,6 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        RaycastHit2D hit = Physics2D.Raycast(_transform.position, _transform.right);
-
-        if (hit.collider.TryGetComponent(out Enemy enemy) && enemy.TryGetComponent(out Health health))
-        {
-            health.TakeDamage(_damage);
-            Debug.Log("Hit " + hit.collider.gameObject);
-        }
+        Instantiate(_bulletPrefab, _shootPoint.position, Quaternion.identity, null).Init(_transform.right, _damage);
     }
 }
