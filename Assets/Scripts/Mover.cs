@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Mover : MonoBehaviour
@@ -38,11 +36,11 @@ public class Mover : MonoBehaviour
     {
         if (_rigidbody2D.velocity.x < 0)
         {
-            _transform.localScale = new Vector3(-1, 1, 1);
+            _transform.rotation = Quaternion.Euler(0,180, 0);
         }
         else if (_rigidbody2D.velocity.x > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            _transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }
