@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyMover :  AbstarctMover
 {
-    [SerializeField] private float _speed;
+    //[SerializeField] private float _speed;
     [SerializeField] private float _minContactDistance;
 
     private Transform _transform;

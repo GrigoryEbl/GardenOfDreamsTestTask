@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMover :  AbstarctMover
 {
-    [SerializeField] protected float _speed;
+   // [SerializeField] protected float _speed;
 
     private Transform _transform;
     protected Rigidbody2D _rigidbody2D;
@@ -19,14 +19,8 @@ public class PlayerMover :  AbstarctMover
     {
         if (direction != null)
         {
-            if (name == "Enemy")
-                print(direction);
-
-            //_rigidbody2D.MovePosition(_rigidbody2D.position + direction * _speed * Time.fixedDeltaTime);
             _rigidbody2D.velocity = (direction * _speed * Time.deltaTime).normalized;
             Flip();
-            //_transform.Translate(direction.normalized * _speed * Time.deltaTime, Space.Self);
-            //_transform.position = Vector2.MoveTowards(_transform.position, direction.normalized ,_speed* Time.deltaTime);
             IsMoving = true;
         }
     }

@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     public void Init(Vector2 direction, int damage)
     {
         _rigidbody2D.velocity = direction * _speed;
+        transform.right = direction;
         
         _damage = damage;
     }

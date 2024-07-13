@@ -15,6 +15,6 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        Instantiate(_bulletPrefab, _shootPoint.position, Quaternion.identity, null).Init(_transform.right, _damage);
+        Instantiate(_bulletPrefab, _shootPoint.position,Quaternion.identity, _transform).Init(_transform.right, _damage);
     }
 }
