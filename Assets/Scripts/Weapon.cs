@@ -7,14 +7,19 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
 
     private Transform _transform;
+    private MagazineCartridges _magazineCartridges;
 
     private void Awake()
     {
         _transform = transform;
+        _magazineCartridges = GetComponent<MagazineCartridges>();
     }
 
     public void Shoot()
     {
-        Instantiate(_bulletPrefab, _shootPoint.position,Quaternion.identity, _transform).Init(_transform.right, _damage);
+        if (_magazineCartridges.TryGetCartridge() == true)
+            Instantiate(_bulletPrefab, _shootPoint.position, Quaternion.identity, _transform).Init(_transform.right, _damage);
+        else
+            print("Нет патронов");
     }
 }

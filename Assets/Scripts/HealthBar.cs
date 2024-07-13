@@ -10,15 +10,15 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _heatlh.HealthChange += ChangeSliderValue;
+        _heatlh.HealthChange += OnChangeHealth;
     }
 
     private void OnDisable()
     {
-        _heatlh.HealthChange -= ChangeSliderValue;
+        _heatlh.HealthChange -= OnChangeHealth;
     }
 
-    private void ChangeSliderValue(int value)
+    private void OnChangeHealth(int value)
     {
         _slider.value = value;
         _text.text = value.ToString();
