@@ -224,12 +224,12 @@ GameObject:
   m_Component:
   - component: {fileID: 165713922}
   - component: {fileID: 165713921}
-  - component: {fileID: 165713920}
-  - component: {fileID: 165713919}
   - component: {fileID: 165713923}
-  - component: {fileID: 165713927}
   - component: {fileID: 165713925}
   - component: {fileID: 165713928}
+  - component: {fileID: 165713920}
+  - component: {fileID: 165713919}
+  - component: {fileID: 165713929}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -361,21 +361,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.38
---- !u!114 &165713927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165713918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24a6e068c7edc1940b079650441ebc87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1
-  _minContactDistance: 1
+  m_Radius: 2.49
 --- !u!50 &165713928
 Rigidbody2D:
   serializedVersion: 4
@@ -397,6 +383,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &165713929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165713918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a6e068c7edc1940b079650441ebc87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0.6
+  _minContactDistance: 0.5
 --- !u!1 &269269361
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +689,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.9868116
+  orthographic size: 2.436791
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2354,6 +2354,7 @@ GameObject:
   - component: {fileID: 1690605644}
   - component: {fileID: 1690605643}
   - component: {fileID: 1690605642}
+  - component: {fileID: 1690605645}
   m_Layer: 0
   m_Name: TilemapFence
   m_TagString: Untagged
@@ -3092,6 +3093,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 19.470083, y: 1.2355003}
+  m_EdgeRadius: 0
+--- !u!61 &1690605645
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690605638}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1, y: -5.3881936}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 22.023508, y: 1.0531588}
   m_EdgeRadius: 0
 --- !u!1 &1694878942
 GameObject:

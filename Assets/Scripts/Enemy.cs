@@ -10,18 +10,11 @@ public class Enemy : MonoBehaviour
         _mover = GetComponent<EnemyMover>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.TryGetComponent(out Player player))
-        {
-            _target = player.transform;
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(_target != null)
+        if (collision.TryGetComponent(out Player player))
         {
+            _target = player.transform;
             _mover.SetTarget(_target);
         }
     }
@@ -31,6 +24,7 @@ public class Enemy : MonoBehaviour
         if (collision.TryGetComponent(out Player player))
         {
             _target = null;
+            _mover.SetTarget(_target);
         }
     }
 }
