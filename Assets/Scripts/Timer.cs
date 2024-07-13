@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
@@ -8,28 +7,28 @@ public class Timer : MonoBehaviour
 
     public Action TimeEmpty;
 
-    public float Time { get; private set; }
+    private float _time; 
 
     private void Update()
     {
         if (_isWork)
         {
-            Time -= UnityEngine.Time.deltaTime;
+            _time -= Time.deltaTime;
 
-            if (Time <= 0)
+            if (_time <= 0)
             {
-                TimeEmpty?.Invoke();
                 _isWork = false;
+                TimeEmpty?.Invoke();
             }
         }
     }
 
     public void StartWork(float startTime)
     {
-        if (Time > 0)
+        if (_isWork)
             return;
 
-        Time = startTime;
+        _time = startTime;
         _isWork = true;
     }
 }

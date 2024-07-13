@@ -6,51 +6,51 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _damage;
     [SerializeField] private float _attackDistance;
+    [SerializeField] private Detector _detector;
 
     private EnemyMover _mover;
     private Transform _target;
-    private Timer _timer;
+    private Timer _attackTimer;
     private float _attackDelay = 1;
 
     private void Awake()
     {
         _mover = GetComponent<EnemyMover>();
-        _timer = GetComponent<Timer>();
+        _attackTimer = GetComponent<Timer>();
     }
 
     private void OnEnable()
     {
         _mover.TargetReached += Attack;
-        _timer.TimeEmpty += Strike;
+        _attackTimer.TimeEmpty += Strike;
+        _detector.EnemyFinded += SetTarget;
     }
 
     private void OnDisable()
     {
         _mover.TargetReached -= Attack;
-        _timer.TimeEmpty -= Strike;
+        _attackTimer.TimeEmpty -= Strike;
+        _detector.EnemyFinded -= SetTarget;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void SetTarget(Transform target)
     {
-        if (collision.TryGetComponent(out Player player))
-        {
-            _target = player.transform;
-            _mover.SetTarget(_target);
-        }
+        _target = target;
+        _mover.SetTarget(_target);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out Player player))
-        {
-            _target = null;
-            _mover.SetTarget(_target);
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.transform == _target)
+    //    {
+    //        _target = null;
+    //        _mover.SetTarget(_target);
+    //    }
+    //}
 
     private void Attack()
     {
-        _timer.StartWork(_attackDelay);
+        _attackTimer.StartWork(_attackDelay);
     }
 
     private void Strike()

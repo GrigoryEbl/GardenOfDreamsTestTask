@@ -1,22 +1,36 @@
 using System;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Weapon _weapon;
     [SerializeField] private GameObject _hand;
+    [SerializeField] private Detector _detector;
 
     private Quaternion _basePositionHande;
+    private Transform _target;
 
     private void Awake()
     {
         _basePositionHande = _hand.transform.rotation;
     }
 
+    private void OnEnable()
+    {
+        _detector.EnemyFinded += SetTarget;
+    }
+
+    private void OnDisable()
+    {
+        _detector.EnemyFinded -= SetTarget;
+    }
+
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if(_target != null)
+        Aiming(_target);
+
+        if (Input.GetKeyUp(KeyCode.Space)) //////////////////////////////////////////////////
             Shoot();
     }
 
@@ -25,24 +39,25 @@ public class Player : MonoBehaviour
         _weapon.Shoot();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void SetTarget(Transform target)
     {
-        if(collision.TryGetComponent(out Enemy enemy))
-        {
-            Aiming(enemy.transform);
-        }
-    }
+        _target = target;
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out Enemy enemy))
-        {
+        if(_target == null)
             _hand.transform.rotation = _basePositionHande;
-        }
     }
 
-    private void Aiming(Transform enemy)
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.TryGetComponent(out Enemy enemy))
+    //    {
+    //        _target = null;
+    //        _hand.transform.rotation = _basePositionHande;
+    //    }
+    //}
+
+    private void Aiming(Transform target)
     {
-        _hand.transform.up = enemy.position * -1 + _hand.transform.position;
+        _hand.transform.up = target.position * -1 + _hand.transform.position;
     }
 }
