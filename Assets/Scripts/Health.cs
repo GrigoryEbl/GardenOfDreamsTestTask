@@ -6,6 +6,7 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private int _value;
 
     public Action<int> HealthChange;
+    public Action Died;
 
     private void Start()
     {
@@ -30,8 +31,9 @@ public class Health : MonoBehaviour, IDamageable
         print(name + "Take damage: " + damage);
     }
 
-    public void Die()
+    public virtual void Die()
     {
+        Died?.Invoke();
         Destroy(gameObject);
     }
 }

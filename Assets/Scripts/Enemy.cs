@@ -7,7 +7,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private float _attackDistance;
     [SerializeField] private Detector _detector;
+    [SerializeField] private Item[] _dropItems;
 
+    private Health _health;
     private EnemyMover _mover;
     private Transform _target;
     private Timer _attackTimer;
@@ -17,6 +19,7 @@ public class Enemy : MonoBehaviour
     {
         _mover = GetComponent<EnemyMover>();
         _attackTimer = GetComponent<Timer>();
+        _health = GetComponent<Health>();
     }
 
     private void OnEnable()
@@ -24,13 +27,20 @@ public class Enemy : MonoBehaviour
         _mover.TargetReached += Attack;
         _attackTimer.TimeEmpty += Strike;
         _detector.EnemyFinded += SetTarget;
+        _health.Died += OnDied;
     }
 
     private void OnDisable()
     {
+        _health.Died -= OnDied;
         _mover.TargetReached -= Attack;
         _attackTimer.TimeEmpty -= Strike;
         _detector.EnemyFinded -= SetTarget;
+    }
+
+    private void OnDied()
+    {
+        Instantiate(_dropItems[Random.Range(0, _dropItems.Length)], transform.position, Quaternion.identity, null);
     }
 
     private void SetTarget(Transform target)

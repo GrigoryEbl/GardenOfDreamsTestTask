@@ -49,7 +49,10 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        _weapon.Shoot();
+        if (_target != null)
+            _weapon.Shoot();
+        else
+            print("Нет цели");
     }
 
     private void SetTarget(Transform target)

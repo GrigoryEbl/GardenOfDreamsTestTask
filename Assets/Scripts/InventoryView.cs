@@ -1,40 +1,38 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class InventoryView : MonoBehaviour
 {
     [SerializeField] private Inventory _inventory;
-    [SerializeField] private Transform _inventoryPanel;
+    [SerializeField] private Cell _cellPrefab;
 
-    private void Start()
+    private Cell[] _cells;
+    private int _cellCount = 10;
+
+    private void Awake()
+    {
+        _cells = new Cell[_cellCount];
+        CreateCells();
+    }
+
+    private void OnEnable()
     {
         Redraw();
     }
 
-    private void Update()
+    private void CreateCells()
     {
-        if(Input.GetKeyUp(KeyCode.Escape))
+        for (int i = 0; i < _cellCount; i++)
         {
-            Redraw() ;
+           var _cell = Instantiate(_cellPrefab, transform);
+            _cells[i] = _cell;
         }
     }
 
-    void Redraw()
+    private void Redraw()
     {
-        for (int i = 0; i < _inventory.items.Count; i++)
+        for (int i = 0; i < _inventory.Items.Count; i++)
         {
-            var item = _inventory.items[i];
-
-            var icon = new GameObject(name: item.Name);
-
-            icon.AddComponent<RectTransform>();
-            icon.AddComponent<SpriteRenderer>().sprite = item.Icon;
-
-            icon.transform.position = new Vector3(0,0, 0);
-            icon.transform.parent = _inventoryPanel;
-
-            print("Create" + item.name);
+            _cells[i].Fill(_inventory.Items[i]);
         }
     }
 }
