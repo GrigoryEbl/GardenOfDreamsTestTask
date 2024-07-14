@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Weapon _weapon;
     [SerializeField] private GameObject _hand;
     [SerializeField] private Detector _detector;
+    [SerializeField] private Inventory _inventory;
 
     private Quaternion _basePositionHande;
     private Transform _target;
@@ -27,11 +29,22 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if(_target != null)
-        Aiming(_target);
+        if (_target != null)
+            Aiming(_target);
 
         if (Input.GetKeyUp(KeyCode.Space)) //////////////////////////////////////////////////
             Shoot();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Item item))
+        {
+            var addedItem = item;
+            _inventory.Add(addedItem);
+
+            item.gameObject.SetActive(false);
+        }
     }
 
     private void Shoot()
@@ -43,18 +56,9 @@ public class Player : MonoBehaviour
     {
         _target = target;
 
-        if(_target == null)
+        if (_target == null)
             _hand.transform.rotation = _basePositionHande;
     }
-
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.TryGetComponent(out Enemy enemy))
-    //    {
-    //        _target = null;
-    //        _hand.transform.rotation = _basePositionHande;
-    //    }
-    //}
 
     private void Aiming(Transform target)
     {

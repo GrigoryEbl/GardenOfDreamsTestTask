@@ -39,15 +39,6 @@ public class Enemy : MonoBehaviour
         _mover.SetTarget(_target);
     }
 
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.transform == _target)
-    //    {
-    //        _target = null;
-    //        _mover.SetTarget(_target);
-    //    }
-    //}
-
     private void Attack()
     {
         _attackTimer.StartWork(_attackDelay);
