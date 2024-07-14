@@ -1,36 +1,52 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyMover))]
+[RequireComponent(typeof(Timer))]
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int _damage;
+    [SerializeField] private float _attackDistance;
+    [SerializeField] private Detector _detector;
+
     private EnemyMover _mover;
     private Transform _target;
+    private Timer _attackTimer;
+    private float _attackDelay = 1;
 
     private void Awake()
     {
         _mover = GetComponent<EnemyMover>();
+        _attackTimer = GetComponent<Timer>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnEnable()
     {
-        if(collision.TryGetComponent(out Player player))
-        {
-            _target = player.transform;
-        }
+        _mover.TargetReached += Attack;
+        _attackTimer.TimeEmpty += Strike;
+        _detector.EnemyFinded += SetTarget;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnDisable()
     {
-        if(_target != null)
-        {
-            _mover.SetTarget(_target);
-        }
+        _mover.TargetReached -= Attack;
+        _attackTimer.TimeEmpty -= Strike;
+        _detector.EnemyFinded -= SetTarget;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void SetTarget(Transform target)
     {
-        if (collision.TryGetComponent(out Player player))
-        {
-            _target = null;
-        }
+        _target = target;
+        _mover.SetTarget(_target);
+    }
+
+    private void Attack()
+    {
+        _attackTimer.StartWork(_attackDelay);
+    }
+
+    private void Strike()
+    {
+        if (Vector2.Distance(transform.position, _target.position) <= _attackDistance && _target.TryGetComponent(out IDamageable damageable))
+            damageable.TakeDamage(_damage);
     }
 }
