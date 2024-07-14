@@ -32,15 +32,15 @@ public class Enemy : MonoBehaviour
 
     private void OnDisable()
     {
-        _health.Died -= OnDied;
         _mover.TargetReached -= Attack;
         _attackTimer.TimeEmpty -= Strike;
         _detector.EnemyFinded -= SetTarget;
+        _health.Died -= OnDied;
     }
 
     private void OnDied()
     {
-        Instantiate(_dropItems[Random.Range(0, _dropItems.Length)], transform.position, Quaternion.identity, null);
+       Instantiate(_dropItems[Random.Range(0, _dropItems.Length)], transform.position, Quaternion.identity, null);
     }
 
     private void SetTarget(Transform target)

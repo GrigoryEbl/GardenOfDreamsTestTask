@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -31,9 +29,6 @@ public class Player : MonoBehaviour
     {
         if (_target != null)
             Aiming(_target);
-
-        if (Input.GetKeyUp(KeyCode.Space)) //////////////////////////////////////////////////
-            Shoot();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,10 +42,40 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    public void Shoot()
     {
         if (_target != null)
-            _weapon.Shoot();
+        {
+            if (_weapon.AmmoCount > 0)
+            {
+                _weapon.Shoot();
+            }
+            else
+            {
+                var items = _inventory.Items;
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    if (items[i].Name == "Ammo")
+                    {
+                        int AddedAmmo = 7;
+
+                        if (items[i].Count >= AddedAmmo)
+                        {
+                            _weapon.AddAmmo(AddedAmmo);
+                            items[i].StackCount(items[i].Count - AddedAmmo);
+                        }
+                        else
+                        {
+                            _weapon.AddAmmo(items[i].Count);
+                            Item item = items[i];
+                            _inventory.Remove(ref item);
+                        }
+                    }
+                }
+            }
+
+        }
         else
             print("Нет цели");
     }

@@ -16,7 +16,5 @@ public class Item : MonoBehaviour
     {
         if (count >= 0)
             _count = count;
-
-
     }
 }
